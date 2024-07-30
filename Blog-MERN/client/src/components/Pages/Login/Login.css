@@ -1,0 +1,32 @@
+*{
+    box-sizing: border-box;
+}
+
+form.login{
+    max-width:  400px;
+    margin: 0 auto;
+}
+
+h1{
+    text-align: center;
+}
+
+input{
+    display: block;
+    margin-bottom: 5px;
+    width: 100%;
+    padding: 5px 7px;
+    border: 2px solid #ddd;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+button{
+    width: 100%;
+    display: block;
+    background-color: #555;
+    border: 0;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+}
