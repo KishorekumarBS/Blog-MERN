@@ -1,42 +1,47 @@
-import React from 'react'
-import { useState } from 'react';
-import './RegisterPage.css'
+import React, { useState } from 'react';
+import axios from 'axios';
+import './RegisterPage.css';
 
 function RegisterPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  async function register(ev){
+  async function register(ev) {
     ev.preventDefault();
-    await fetch('http://localhost:4000/register',{
-      method:'POST',
-      body: JSON.stringify({username,password}),
-      headers:{'Content-Type':'application/json'},
-    })
+    try {
+      const response = await axios.post('http://localhost:4000/register', {
+        username,
+        password
+      });
+      console.log('Registration successful:', response.data);
+      // Handle successful registration (e.g., redirect, show message)
+    } catch (err) {
+      setError(err.response?.data?.message || 'An error occurred during registration');
+    }
   }
 
-  //mongodb+srv://kishorekumar:CmW0OOdztrUsmV2R@cluster0.ka4pzx4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-  // CmW0OOdztrUsmV2R
-  // kishorekumar
   return (
     <div>
-        <form className='register' onSubmit={register}>
+      <form className='register' onSubmit={register}>
         <h1>Register</h1>
-            <input 
-            type="text" 
-            placeholder='username' 
-            value={username}
-            onChange={ev =>setUsername(ev.target.value)}/>
-            <input 
-            type="password" 
-            placeholder='password' 
-            value={password}
-            onChange={ev =>setPassword(ev.target.value)}
-            />
-            <button>Register</button>
-        </form>
+        {error && <p className="error">{error}</p>}
+        <input 
+          type="text" 
+          placeholder='username' 
+          value={username}
+          onChange={ev => setUsername(ev.target.value)}
+        />
+        <input 
+          type="password" 
+          placeholder='password' 
+          value={password}
+          onChange={ev => setPassword(ev.target.value)}
+        />
+        <button>Register</button>
+      </form>
     </div>
-  )
+  );
 }
 
-export default RegisterPage
+export default RegisterPage;
