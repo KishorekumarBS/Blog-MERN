@@ -30,4 +30,28 @@ app.post('/register', async (req, res) => {
     }
 });
 
+app.post('/login', async(req,res)=>{
+    const {username, password} = req.body;
+    if (!username||!password){
+        return res.status(400)
+    }
+    const existingUser = await User.findOne({ username: username });
+        if (!existingUser){
+            return res.status(409).json({'message': 'Username does not exists'});
+        }
+    try{
+        const match = await bcrypt.compare(password, existingUser.password)
+        if (match){
+            res.json(match);
+        }
+        else{
+            res.json(match)
+        }
+    }
+    catch(err){
+        res.send(err)
+    }
+
+})
+
 app.listen(4000);
