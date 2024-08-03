@@ -1,4 +1,3 @@
-// In a new file, e.g., api.js
 import axios from 'axios';
 
 const api = axios.create({

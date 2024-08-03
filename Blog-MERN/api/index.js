@@ -76,4 +76,29 @@ app.post('/login', async (req, res) => {
     }
 });
 
+app.get('/profile', (req, res) => {
+    const { token } = req.cookies;
+    if (!token) {
+        return res.status(401).json({ 'message': 'No token provided' });
+    }
+    
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ 'message': 'Invalid token' });
+        }
+        res.json(decoded);
+        console.log(decoded);
+    });
+});
+
+app.post('/logout', (req, res) => {
+    res.cookie('token', '', { 
+        httpOnly: true,
+        sameSite: 'none',
+        secure: true,
+        expires: new Date(0)
+    });
+    res.json({ 'message': 'Logged out successfully' });
+});
+
 app.listen(4000);
