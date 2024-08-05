@@ -12,6 +12,7 @@ export default function Header() {
   useEffect(() => {
     api.get('/profile', { withCredentials: true })
       .then(response => {
+        console.log('test')
         setUserInfo(response.data);
         console.log(response.data)
       })

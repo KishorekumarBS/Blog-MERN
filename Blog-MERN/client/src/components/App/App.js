@@ -1,5 +1,6 @@
 import Header from '../Header/Header';
 import Layout from '../Layout/Layout';
+import CreatePost from '../Pages/CreatePost/CreatePost';
 import IndexPage from '../Pages/IndexPage/IndexPage';
 import Login from '../Pages/Login/Login';
 import RegisterPage from '../Pages/RegisterPage/RegisterPage';
@@ -16,6 +17,7 @@ function App() {
             <Route index element ={<IndexPage/>}/>
             <Route path={'/login'} element ={<Login/>}/>
             <Route path = {'/register'} element ={<RegisterPage/>}/>
+            <Route path='/create' element={<CreatePost/>}/>
     </Route>
     </Routes>
     </UserContextProvider>
