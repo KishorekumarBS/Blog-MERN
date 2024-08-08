@@ -8,7 +8,7 @@ import Post from '../Post/Post';
 import { UserContextProvider } from '../UserContext/UserContext';
 import './App.css';
 import {Route, Routes} from "react-router-dom";
-
+// streak
 function App() {
   return (
     <UserContextProvider>
