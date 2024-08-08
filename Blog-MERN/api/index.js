@@ -112,14 +112,28 @@ app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
         const ext = parts[parts.length - 1];
         const newPath = path + '.' + ext;
         fs.renameSync(path, newPath);
-        const { title, summary, content } = req.body;
-        const postDoc = await Post.create({
-            title,
-            summary,
-            content,
-            cover: newPath,
+
+        const { token } = req.cookies;
+        if (!token) {
+            return res.status(401).json({ 'message': 'No token provided' });
+        }
+        
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET,async (err, decoded) => {
+            if (err) {
+                return res.status(401).json({ 'message': 'Invalid token' });
+            }
+            const { title, summary, content } = req.body;
+            const postDoc = await Post.create({
+                title,
+                summary,
+                content,
+                cover: newPath,
+                author:decoded.id,
+            });
+            res.json(postDoc); 
+            
         });
-        res.json(postDoc); // Send only one response
+       
     } catch (error) {
         console.error('Error creating post:', error);
         res.status(500).json({ message: 'Internal Server Error' }); // Handle errors
@@ -127,7 +141,7 @@ app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
 });
 
 app.get('/post',async (req,res)=>{
-    const posts = await Post.find();
+    const posts = await Post.find().populate('author',['username']);
     res.json(posts);
 })
 
