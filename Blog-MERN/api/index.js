@@ -13,6 +13,7 @@ require('dotenv').config();
 
 
 const app= express();
+app.use('/uploads',express.static(__dirname+'/uploads')); 
 
 
 app.use(cors({
@@ -35,7 +36,6 @@ app.post('/register', async (req, res) => {
     }
     try {
         const hashedPwd = await bcrypt.hash(password, 10);
-        // If no existing user, create new user
         const userDoc = await User.create({username, password: hashedPwd});
         res.status(201).json({'success':`New user ${username} created!`});
     } catch (e) {
@@ -91,7 +91,6 @@ app.get('/profile', (req, res) => {
             return res.status(401).json({ 'message': 'Invalid token' });
         }
         res.json(decoded);
-        console.log(decoded);
     });
 });
 
@@ -141,8 +140,8 @@ app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
 });
 
 app.get('/post',async (req,res)=>{
-    const posts = await Post.find().populate('author',['username']);
-    res.json(posts);
+
+    res.json(await Post.find().populate('author',['username']).sort({createdAt:-1}).limit(20));
 })
 
 
