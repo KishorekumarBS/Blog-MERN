@@ -6,7 +6,12 @@ div.post{
 }
 div.post div.texts h2{
     margin: 0;
-    font-size:1.5rem
+    font-size:1.5rem;
+
+}
+div.post div.texts a{
+    text-decoration: none;
+    color: inherit;
 }
 
 div.post p.info{
