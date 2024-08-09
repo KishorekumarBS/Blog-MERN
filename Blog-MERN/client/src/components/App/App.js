@@ -1,10 +1,9 @@
-import Header from '../Header/Header';
 import Layout from '../Layout/Layout';
 import CreatePost from '../Pages/CreatePost/CreatePost';
 import IndexPage from '../Pages/IndexPage/IndexPage';
 import Login from '../Pages/Login/Login';
+import PostPage from '../Pages/PostPage/PostPage';
 import RegisterPage from '../Pages/RegisterPage/RegisterPage';
-import Post from '../Post/Post';
 import { UserContextProvider } from '../UserContext/UserContext';
 import './App.css';
 import {Route, Routes} from "react-router-dom";
@@ -18,6 +17,7 @@ function App() {
             <Route path={'/login'} element ={<Login/>}/>
             <Route path = {'/register'} element ={<RegisterPage/>}/>
             <Route path='/create' element={<CreatePost/>}/>
+            <Route path = {'/post/:id'} element = {<PostPage/>}/>
     </Route>
     </Routes>
     </UserContextProvider>
