@@ -35,8 +35,7 @@ function PostPage() {
         // Add your delete logic here
         api.delete(`/post/${id}`).then(response => {
             console.log('Post deleted');
-            
-            // setRedirect(true)
+            setRedirect(true)
         });
     };
     if (redirect){
