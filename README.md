@@ -2,7 +2,7 @@
 
 A feature-rich blogging platform built with the MERN (MongoDB, Express.js, React, Node.js) stack. This application provides a seamless experience for users to create, read, update, and delete blog posts.
 
-![Blog App Screenshot](api/uploads/Screenshot1.png)
+![Blog App Screenshot](Blog-MERN/api/uploads/Screenshot1.png)
 
 ## 🚀 Features
 
@@ -30,21 +30,6 @@ A feature-rich blogging platform built with the MERN (MongoDB, Express.js, React
 - **File Handling**: 
   - Multer for file uploads
 
-## 🏗️ Project Structure
-project-root/
-│
-├── api/                # Backend
-│   ├── models/         # Database models
-│   ├── uploads/        # Uploaded files
-│   └── index.js        # Main server file
-│
-└── client/             # Frontend
-├── public/
-└── src/
-├── components/ # React components
-├── pages/      # Page components
-└── App.js      # Main React component
-
 ## 🚦 Getting Started
 
 1. Clone the repository
@@ -53,8 +38,6 @@ project-root/
 4. Configure environment variables
 5. Run the backend server
 6. Start the React development server
-
-Detailed setup instructions can be found in the [Installation Guide](./INSTALL.md).
 
 ## 🔐 Environment Variables
 
