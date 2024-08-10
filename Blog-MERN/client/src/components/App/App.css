@@ -1,15 +1,24 @@
-body{
+body {
     color: #222;
+    background-color: #f5f5f5; /* Light gray background to reduce the contrast */
+    font-family: Arial, sans-serif; /* Improved font for readability */
 }
 
-img{
+img {
     max-width: 100%;
 }
 
-main{
-    padding: 10px;
+main {
+    padding: 20px; /* Increased padding for better spacing */
     max-width: 960px;
     margin: 0 auto;
+    background-color: #ffffff; /* White background for the main content */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+    border-radius: 8px; /* Rounded corners for a softer look */
 }
 
-
+@media screen and (min-width: 1200px) {
+    main {
+        padding: 40px; /* Extra padding for very large screens */
+    }
+}
