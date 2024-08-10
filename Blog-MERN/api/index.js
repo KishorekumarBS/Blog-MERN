@@ -24,7 +24,8 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
-mongoose.connect('mongodb+srv://kishorekumar:CmW0OOdztrUsmV2R@cluster0.ka4pzx4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+
+mongoose.connect(process.env.MONGODB_URI)
 
 app.post('/register', async (req, res) => {
     const {username, password} = req.body;
