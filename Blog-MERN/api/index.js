@@ -1,3 +1,4 @@
+// Backend: index.js
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -139,6 +140,52 @@ app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
     }
 });
 
+app.put('/post', uploadMiddleware.single('file'), async(req, res) => {
+    let newPath = null;
+    if (req.file){
+        const { originalname, path } = req.file;
+        const parts = originalname.split('.');
+        const ext = parts[parts.length - 1];
+        newPath = path + '.' + ext;
+        fs.renameSync(path, newPath);
+    }
+
+    const { token } = req.cookies;
+    if (!token) {
+        return res.status(401).json({ 'message': 'No token provided' });
+    }
+    
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ 'message': 'Invalid token' });
+        }
+        const {id, title, summary, content} = req.body;
+        const postDoc = await Post.findById(id);
+        
+        if (!postDoc) {
+            return res.status(404).json({ 'message': 'Post not found' });
+        }
+
+        const isAuthor = JSON.stringify(postDoc.author) === JSON.stringify(decoded.id);
+        
+        if (!isAuthor) {
+            return res.status(403).json({ 'message': 'You are not the author of this post' });
+        }
+
+        // Update the post
+        postDoc.title = title;
+        postDoc.summary = summary;
+        postDoc.content = content;
+        if (newPath) {
+            postDoc.cover = newPath;
+        }
+
+        await postDoc.save();
+        
+        res.json(postDoc);
+    });
+});
+
 app.get('/post',async (req,res)=>{
 
     res.json(await Post.find().populate('author',['username']).sort({createdAt:-1}).limit(20));
@@ -149,6 +196,5 @@ app.get('/post/:id', async (req, res)=>{
     const postDoc = await Post.findById(id).populate('author', ['username']);
     res.json(postDoc);
 })
-
 
 app.listen(4000);

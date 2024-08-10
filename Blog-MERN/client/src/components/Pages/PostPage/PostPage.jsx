@@ -14,7 +14,7 @@ function PostPage() {
     const {userInfo} = useContext(UserContext)
     const {id} = useParams();
     useEffect(()=>{
-        api.get(`/post/${id}`).then(response =>{setPostInfo(response.data)})
+      api.get(`/post/${id}`).then(response =>{setPostInfo(response.data)})
     },[]);
     if(!postInfo) return '';
   return (
