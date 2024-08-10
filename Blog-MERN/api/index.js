@@ -197,4 +197,10 @@ app.get('/post/:id', async (req, res)=>{
     res.json(postDoc);
 })
 
+app.delete('/post/:id', async(req, res)=>{
+    const {id} = req.params;
+    const postDoc = await Post.findById(id);
+    res.json(postDoc);
+})
+
 app.listen(4000);

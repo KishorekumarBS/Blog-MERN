@@ -36,23 +36,44 @@ div.content{
     line-height: 1.6rem;
 }
 
-div.edit-row{
+/* Container holding the buttons */
+div.edit-row {
     text-align: center;
     margin-bottom: 10px;
+    display: flex;
+    justify-content: center; /* Centers the buttons */
+    gap: 10px; /* Adds space between buttons */
 }
 
-a.edit-btn{
+/* Common styling for both buttons */
+a.edit-btn,
+button.delete-btn {
     background-color: #333;
     color: white;
-    padding: 15px 30px;
-    border-radius: 5px;
+    padding: 12px 20px; /* Adjust padding to balance text and icon size */
+    border-radius: 8px;
     text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    
+    display: inline-flex; /* Flexbox to align icon and text */
+    align-items: center; /* Center align icon and text */
+    justify-content: center; /* Center align text inside the button */
+    gap: 8px; /* Space between icon and text */
+    border: none;
+    cursor: pointer;
+    font-size: 16px; /* Adjust font size for better readability */
+    width: 200px; /* Ensure consistent button width */
+    transition: background-color 0.3s ease; /* Smooth transition effect */
 }
 
-a svg{
+/* Hover effect */
+a.edit-btn:hover,
+button.delete-btn:hover {
+    background-color: #555;
+}
+
+/* Icon styling */
+a.edit-btn svg,
+button.delete-btn svg {
     height: 20px;
+    width: 20px;
+    color: white;
 }
