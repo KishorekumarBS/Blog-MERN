@@ -64,7 +64,7 @@ function PostPage() {
                 </div>
             )}
             <div className="image">
-                <img src={`http://localhost:4000/${postInfo.cover}`} alt="Post image fetched from DB" />
+                <img src={`https://blog-mern-z9vc.onrender.com/${postInfo.cover}`} alt="Post image fetched from DB" />
             </div>
             <div className="content">
                 <div dangerouslySetInnerHTML={{ __html: postInfo.content }}></div>

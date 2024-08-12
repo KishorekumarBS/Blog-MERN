@@ -10,7 +10,7 @@ function RegisterPage() {
   async function register(ev) {
     ev.preventDefault();
     try {
-      const response = await axios.post('http://localhost:4000/register', {
+      const response = await axios.post('https://blog-mern-z9vc.onrender.com/register', {
         username,
         password
       });

@@ -15,17 +15,16 @@ require('dotenv').config();
 
 const app= express();
 app.use('/uploads',express.static(__dirname+'/uploads')); 
-
 const port = process.env.PORT || 4000;
 
 
 app.use(cors({
     credentials: true,
-    origin: 'https://blog-mern-ten.vercel.app'
+    origin: 'blog-mern-ten.vercel.app' // Replace with your React app's URL
   }));
 app.use(express.json());
 app.use(cookieParser());
-const BACKEND_URL = 'https://blog-mern-z9vc.onrender.com';
+
 
 mongoose.connect(process.env.MONGODB_URI)
 
@@ -110,7 +109,6 @@ app.post('/logout', (req, res) => {
 
 app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
     try {
-         
         const { originalname, path } = req.file;
         const parts = originalname.split('.');
         const ext = parts[parts.length - 1];
@@ -131,7 +129,7 @@ app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
                 title,
                 summary,
                 content,
-                cover: `${BACKEND_URL}/${newPath}`,
+                cover: newPath,
                 author:decoded.id,
             });
             res.json(postDoc); 
@@ -190,14 +188,10 @@ app.put('/post', uploadMiddleware.single('file'), async(req, res) => {
     });
 });
 
-app.get('/post', async (req, res) => {
-    const posts = await Post.find().populate('author', ['username']).sort({createdAt:-1}).limit(20);
-    const postsWithFullImageUrls = posts.map(post => ({
-      ...post.toObject(),
-      cover: post.cover.startsWith('http') ? post.cover : `${BACKEND_URL}/${post.cover}`
-    }));
-    res.json(postsWithFullImageUrls);
-  });
+app.get('/post',async (req,res)=>{
+
+    res.json(await Post.find().populate('author',['username']).sort({createdAt:-1}).limit(20));
+})
 
 app.get('/post/:id', async (req, res)=>{
     const {id} = req.params;
