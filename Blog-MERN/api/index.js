@@ -20,7 +20,7 @@ const port = process.env.PORT || 4000;
 
 app.use(cors({
     credentials: true,
-    origin: 'blog-mern-ten.vercel.app' // Replace with your React app's URL
+    origin: 'https://blog-mern-ten.vercel.app' // Replace with your React app's URL
   }));
 app.use(express.json());
 app.use(cookieParser());
