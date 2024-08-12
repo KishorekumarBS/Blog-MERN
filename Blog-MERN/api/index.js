@@ -15,6 +15,7 @@ require('dotenv').config();
 
 const app= express();
 app.use('/uploads',express.static(__dirname+'/uploads')); 
+const port = process.env.PORT || 4000;
 
 
 app.use(cors({
