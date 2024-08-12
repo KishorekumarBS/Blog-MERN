@@ -25,7 +25,7 @@ app.use(cors({
   }));
 app.use(express.json());
 app.use(cookieParser());
-
+const BACKEND_URL = 'https://blog-mern-z9vc.onrender.com';
 
 mongoose.connect(process.env.MONGODB_URI)
 
@@ -110,7 +110,7 @@ app.post('/logout', (req, res) => {
 
 app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
     try {
-        const BACKEND_URL = 'https://blog-mern-z9vc.onrender.com'; 
+         
         const { originalname, path } = req.file;
         const parts = originalname.split('.');
         const ext = parts[parts.length - 1];
